@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Made Indrayana - indrayana.net</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container" id="container">
+      <div class="cube" id="cube">
+        <div class="face front">
+          <div class="logo"></div>
+        </div>
+        <div class="face back"></div>
+        <div class="face right"></div>
+        <div class="face left"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+      </div>
+    </div>
+
+    <h1>Made <mark id="mark">Indra</mark>yana</h1>
+    <h2>Inquirer. Learner. Explorer.</h2>
+    <center>
+      <button class="button" id="github-button">Github</button>
+      <button class="button" id="instagram-button">Instagram</button>
+    </center>
+
+    <script>
+      document
+        .getElementById("github-button")
+        .addEventListener("click", function () {
+          window.open("https://github.com/made-indrayana", "_blank");
+        });
+      document
+        .getElementById("instagram-button")
+        .addEventListener("click", function () {
+          window.open("https://instagram.com/indrayanaaaaaa", "_blank");
+        });
+      window.addEventListener("load", function () {
+        document.getElementById("mark").classList.add("mark-transition");
+      });
+      const container = document.documentElement;
+      const cube = document.getElementById("cube");
+
+      container.addEventListener("mousemove", (e) => {
+        const mouseX = e.clientX - container.offsetLeft;
+        const mouseY = e.clientY - container.offsetTop;
+
+        const rotateY = (mouseX / window.innerWidth - 0.5) * 100;
+        const rotateX = (mouseY / window.innerHeight - 0.5) * -100;
+
+        cube.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+      });
+
+      let lastClickTime = 0;
+      let animationSpeed = 500; // Initial animation speed in miliseconds
+
+      document.addEventListener("mousedown", function (event) {
+        if (event.button === 0) {
+          // Check if the left mouse button is clicked (button code: 0)
+          const currentTime = new Date().getTime();
+          const timeSinceLastClick = currentTime - lastClickTime;
+
+          if (timeSinceLastClick == currentTime) {
+            animationSpeed = 500;
+          } else if (animationSpeed < 2000) {
+            animationSpeed = timeSinceLastClick;
+          } else if (animationSpeed < 200) {
+            animationSpeed = 200;
+          } else animationSpeed = 2000;
+
+          const logoFace = document.querySelector(".logo");
+          logoFace.style.animationDuration = animationSpeed + "ms"; // Set animation duration dynamically
+          logoFace.classList.add("blink");
+
+          // After a short delay, remove the 'blink' class to stop the blinking effect
+          setTimeout(function () {
+            logoFace.classList.remove("blink");
+          }, animationSpeed); // Convert animation speed to milliseconds
+
+          lastClickTime = currentTime; // Update last click time
+        }
+      });
+    </script>
+  </body>
+</html>
