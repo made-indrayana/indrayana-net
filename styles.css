@@ -1,10 +1,19 @@
+:root{
+  --blue-bg: #2f4c90;
+  --blue-cube: #556cb4b3;
+  --blue-highlight: #74a6ff;
+  --blue-accent: #a97d3f;
+  --blue-accent-darker: #6a4f28;
+  --text-white: aliceblue;
+}
+
 body {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
   margin: 0;
   padding: 0;
   perspective: 1000px;
-  background-color: #2f4c90;
+  background-color: var(--blue-bg);
   align-items: center;
 }
 
@@ -13,7 +22,7 @@ h1 {
   font-weight: 700;
   font-style: normal;
   font-size: 50px;
-  color: aliceblue;
+  color: var(--text-white);
   margin-bottom: -10px;
 }
 
@@ -22,43 +31,46 @@ h2 {
   font-weight: 400;
   font-style: normal;
   font-size: 25px;
-  color: aliceblue;
+  color: var(--text-white);
 }
 
 mark {
-    background-color: rgba(52, 152, 219, 0);
-    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--text-white);
+    transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+  }
+
+mark:hover {
+  background-color: var(--blue-accent);
 }
 
 .mark-transition {
-  background-color: #3498db;
-  color: #ffffff;
-  transition: background-color 3s, color 3s;
+  background-color: var(--blue-accent);
+  transition: background-color 1s, color 1s;
 }
 
-.button {
+button {
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
-  font-weight: bold;
   text-decoration: none;
-  color: #ffffff;
-  background-color: #007bff;
-  border: 2px solid #007bff;
+  color: var(--text-white);
+  background-color: var(--blue-cube);
+  border: 2px solid var(--blue-cube);
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   margin: 5px 5px;
 }
 
-.button:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+button:hover {
+  background-color: var(--blue-accent);
+  border-color: var(--blue-accent);
 }
 
-.button:focus {
+button:focus {
   outline: none;
-  background-color: rgba(86, 104, 169, 0.7);
+  background-color: var(--blue-accent-darker);
 }
 
 .container {
@@ -104,32 +116,32 @@ mark {
 }
 
 .front {
-  background-color: rgba(86, 104, 169, 0.7);
+  background-color: var(--blue-cube);
   transform: translateZ(100px);
 }
 
 .back {
-  background-color: rgba(86, 104, 169, 0.7);
+  background-color: var(--blue-cube);
   transform: rotateY(180deg) translateZ(100px);
 }
 
 .right {
-  background-color: rgba(86, 104, 169, 0.7);
+  background-color: var(--blue-cube);
   transform: rotateY(90deg) translateZ(100px);
 }
 
 .left {
-  background-color: rgba(86, 104, 169, 0.7);
+  background-color: var(--blue-cube);
   transform: rotateY(-90deg) translateZ(100px);
 }
 
 .top {
-  background-color: rgba(86, 104, 169, 0.7);
+  background-color: var(--blue-cube);
   transform: rotateX(90deg) translateZ(100px);
 }
 
 .bottom {
-  background-color: rgba(86, 104, 169, 0.7);
+  background-color: var(--blue-cube);
   transform: rotateX(-90deg) translateZ(100px);
 }
 
