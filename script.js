@@ -16,19 +16,73 @@ document
     window.open("https://www.linkedin.com/in/made-indrayana/", "_blank");
   });
 
-// Cube Scripts
-const container = document.documentElement;
-const cube = document.getElementById("cube");
+// Check OS
+const os = navigator.appVersion;
+if (os.indexOf("Win") != -1) enableMouseDetection();
+if (os.indexOf("Mac") != -1) enableMouseDetection();
+if (os.indexOf("X11") != -1) enableMouseDetection();
+if (os.indexOf("Linux") != -1) enableMouseDetection();
+if (os.indexOf("Android") != -1) enableDeviceOrientation();
+if (os.indexOf("iPhone") != -1) addPermissionButton();
+if (os.indexOf("iPad") != -1) addPermissionButton();
 
-container.addEventListener("mousemove", (e) => {
-  const mouseX = e.clientX - container.offsetLeft;
-  const mouseY = e.clientY - container.offsetTop;
+// Cube Script - Add Permission Button
+function addPermissionButton() {
+  const html = document.getElementById("permission-buton");
+  html.innerHTML =
+    "<button onclick=RequestPermissionIOS()>Enable Orientation</button>";
+}
 
-  const rotateY = (mouseX / window.innerWidth - 0.5) * 100;
-  const rotateX = (mouseY / window.innerHeight - 0.5) * -100;
+// Cube Script - Mouse
+function enableMouseDetection() {
+  const container = document.documentElement;
+  const cube = document.getElementById("cube");
 
-  cube.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-});
+  container.addEventListener("mousemove", (e) => {
+    const mouseX = e.clientX - container.offsetLeft;
+    const mouseY = e.clientY - container.offsetTop;
+
+    const rotateY = (mouseX / window.innerWidth - 0.5) * 100;
+    const rotateX = (mouseY / window.innerHeight - 0.5) * -100;
+
+    cube.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+  });
+}
+
+// Cube Script - Mobile
+function enableDeviceOrientation() {
+  window.addEventListener(
+    "deviceorientation",
+    (e) => {
+      const posX = -e.beta;
+      const posY = e.gamma;
+
+      cube.style.transform = `rotateY(${posY}deg) rotateX(${posX}deg)`;
+
+      output.textContent = `beta: ${posX}\n`;
+      output.textContent += `gamma: ${posY}\n`;
+    },
+    true
+  );
+}
+
+// Cube Script - iOS
+function RequestPermissionIOS() {
+  DeviceOrientationEvent.requestPermission()
+    .then((response) => {
+      if (response == "granted") {
+        console.log("granted good");
+        window.addEventListener("deviceorientation", (e) => {
+          const posX = -e.beta;
+          const posY = e.gamma;
+          cube.style.transform = `rotateY(${posY}deg) rotateX(${posX}deg)`;
+        });
+      }
+    })
+    .catch((err) => {
+      console.log("Err ", err);
+    });
+}
 
 // Blink function
 let animationSpeed = 500;
