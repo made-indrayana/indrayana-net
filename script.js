@@ -73,7 +73,7 @@ function RequestPermissionIOS() {
       if (response == "granted") {
         console.log("granted good");
         window.addEventListener("deviceorientation", (e) => {
-          const posX = -e.beta;
+          const posX = -e.beta + 45;
           const posY = e.gamma;
           cube.style.transform = `rotateY(${posY}deg) rotateX(${posX}deg)`;
         });
